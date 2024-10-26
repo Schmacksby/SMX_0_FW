@@ -44,7 +44,7 @@
 
 /* USER CODE BEGIN PV */
 
-//TEST
+
 extern USBD_HandleTypeDef hUsbDeviceFS;
 
 typedef struct
