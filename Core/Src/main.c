@@ -28,6 +28,18 @@
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
 
+typedef struct
+{
+	uint8_t MODIFIER;
+	uint8_t RESERVED;
+	uint8_t KEYCODE1;
+	uint8_t KEYCODE2;
+	uint8_t KEYCODE3;
+	uint8_t KEYCODE4;
+	uint8_t KEYCODE5;
+	uint8_t KEYCODE6;
+}subKeyBoard;
+
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -45,33 +57,16 @@
 /* USER CODE BEGIN PV */
 
 
+
+
+volatile uint8_t key_pressed = 0;	//which key was pressed
+
+
 extern USBD_HandleTypeDef hUsbDeviceFS;
 
-typedef struct
-{
-	uint8_t button;
-	int8_t mouse_x;
-	int8_t mouse_y;
-	int8_t wheel;
-} mouseHID;
+subKeyBoard keyBoardHIDsub = {0,0,0,0,0,0,0,0};
 
-mouseHID mousehid = {0,0,0,0};
 
-int colrow0 = 0;
-int colrow1 = 0;
-int colrow2 = 0;
-int colrow3 = 0;
-int colrow4 = 0;
-int colrow5 = 0;
-int colrow6 = 0;
-int colrow7 = 0;
-int colrow8 = 0;
-int colrow9 = 0;
-int colrow10 = 0;
-int colrow11 = 0;
-int colrow12 = 0;
-int colrow13 = 0;
-int colrow14 = 0;
 int rot_sw = 0;
 int rot_A = 0;
 int rot_B = 0;
@@ -129,104 +124,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, GPIO_PIN_SET);
-		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, GPIO_PIN_SET);
-		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_SET);
-		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_8, GPIO_PIN_SET);
-		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_9, GPIO_PIN_SET);
-
-		if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0)){
-			colrow0 = 1;
-		} else {
-			colrow0 = 0;
-		}
-
-		if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_1)){
-			colrow1 = 1;
-		} else {
-			colrow1 = 0;
-		}
-
-		if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_2)){
-			colrow2 = 1;
-		} else {
-			colrow2 = 0;
-		}
-		if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_3)){
-			colrow3 = 1;
-		} else {
-			colrow3 = 0;
-		}
-		if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)){
-			colrow4 = 1;
-		} else {
-			colrow4 = 0;
-		}
-		if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_5)){
-			colrow5 = 1;
-		} else {
-			colrow5 = 0;
-		}
-		if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_6)){
-			colrow6 = 1;
-		} else {
-			colrow6 = 0;
-		}
-		if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_7)){
-			colrow7 = 1;
-		} else {
-			colrow7 = 0;
-		}
-		if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_8)){
-			colrow8 = 1;
-		} else {
-			colrow8 = 0;
-		}
-		if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_9)){
-			colrow9 = 1;
-		} else {
-			colrow9 = 0;
-		}
-		if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_10)){
-			colrow10 = 1;
-		} else {
-			colrow10 = 0;
-		}
-		if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_10)){
-			colrow11 = 1;
-		} else {
-			colrow11 = 0;
-		}
-		if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_11)){
-			colrow12 = 1;
-		} else {
-			colrow12 = 0;
-		}
-		if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_15)){
-			colrow13 = 1;
-		} else {
-			colrow13 = 0;
-		}
-		if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_15)){
-			colrow14 = 1;
-		} else {
-			colrow14 = 0;
-		}
-		if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_13)){
-			rot_sw = 1;
-		} else {
-			rot_sw = 0;
-		}
-		if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_7)){
-			rot_A = 1;
-		} else {
-			rot_A = 0;
-		}
-		if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_6)){
-			rot_B = 1;
-		} else {
-			rot_B = 0;
-		}
+		check_matrix();
 
 	}
   /* USER CODE END 3 */
@@ -295,7 +193,8 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3|GPIO_PIN_4|GPIO_PIN_5, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3|GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_8
+                          |GPIO_PIN_9, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : PA0 PA1 PA2 PA3
                            PA4 PA5 PA6 PA7
@@ -308,9 +207,9 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PB10 PB11 PB13 PB15
-                           PB6 PB7 PB8 PB9 */
+                           PB6 PB7 */
   GPIO_InitStruct.Pin = GPIO_PIN_10|GPIO_PIN_11|GPIO_PIN_13|GPIO_PIN_15
-                          |GPIO_PIN_6|GPIO_PIN_7|GPIO_PIN_8|GPIO_PIN_9;
+                          |GPIO_PIN_6|GPIO_PIN_7;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
@@ -322,8 +221,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PB4 PB5 */
-  GPIO_InitStruct.Pin = GPIO_PIN_4|GPIO_PIN_5;
+  /*Configure GPIO pins : PB4 PB5 PB8 PB9 */
+  GPIO_InitStruct.Pin = GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_8|GPIO_PIN_9;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
