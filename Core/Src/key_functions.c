@@ -55,12 +55,35 @@ Key_Mapping keyMapping[] = {
 		{8, 0x25}, //Keyboard 8
 		{9, 0x26}, //Keyboard 9
 		{10, 0x27}, //Keyboard 0
-		{11, 0x27}, // ß
-		{12, 0x27}, // ´
+		{11, 0x2D}, // ß but coded as Key_Minus
+		{12, 0x27}, // ´` but coded as Key_Equal
 		{13, 0x2A}, //Backspace
-		//{14, 0x27}, //Keyboard 0
-		{15, 0x27}, //Keyboard 0
+		{14, 0x00}, //BLANK FOR NOW
+		{15, 0x2B}, //Tab
+		{16, 0x14}, //Q
+		{17, 0x1A}, //W
+		{18, 0x08}, //E
+		{19, 0x15}, //R
+		{20, 0x17}, //T
+		{21, 0x1C}, //Z but coded as Y
+		{22, 0x18}, //U
+		{23, 0x0C}, //I
+		{24, 0x12}, //O
+		{25, 0x13}, //P
+		{26, 0x2F}, //Ü but coded as {[ LEFT_BRACE
+		{27, 0x30}, //+~* but coded as }] RIGHT_BRACE
+		{28, 0x4A}, //Pos1 coded as Home
+		{29, 0x00}, //BLANK FOR NOWeyboard Non-US \ and |
+		{30, 0x64}, //|<> coded as KEY_102ND according to USB-IF labeled Keyboard Non-US \ and |
+		{31, 0x04}, //A
+		{32, 0x16}, //S
+		{33, 0x07}, //D
+		{34, 0x09}, //F
+		{35, 0x0A}, //G
+		{36, 0x0B}, //H
+
 };
+
 
 
 #define ROWS_TO_ITERATE_SIZE sizeof(rowsToIterate)/sizeof(rowsToIterate[0])
