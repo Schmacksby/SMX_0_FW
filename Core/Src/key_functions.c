@@ -44,6 +44,7 @@ GPIO_Pin colsToIterate[] = {
 };
 
 Key_Mapping keyMapping[] = {
+		//FIRST ROW
 		{0, 0x29}, //Escape
 		{1, 0x1E}, //Keyboard 1
 		{2, 0x1F}, //Keyboard 2
@@ -59,6 +60,7 @@ Key_Mapping keyMapping[] = {
 		{12, 0x27}, // ´` but coded as Key_Equal
 		{13, 0x2A}, //Backspace
 		{14, 0x00}, //BLANK FOR NOW
+		//SECOND ROW
 		{15, 0x2B}, //Tab
 		{16, 0x14}, //Q
 		{17, 0x1A}, //W
@@ -73,7 +75,8 @@ Key_Mapping keyMapping[] = {
 		{26, 0x2F}, //Ü but coded as {[ LEFT_BRACE
 		{27, 0x30}, //+~* but coded as }] RIGHT_BRACE
 		{28, 0x4A}, //Pos1 coded as Home
-		{29, 0x00}, //BLANK FOR NOWeyboard Non-US \ and |
+		{29, 0x00}, //BLANK FOR NOW
+		//THIRD ROW
 		{30, 0x64}, //|<> coded as KEY_102ND according to USB-IF labeled Keyboard Non-US \ and |
 		{31, 0x04}, //A
 		{32, 0x16}, //S
@@ -81,6 +84,16 @@ Key_Mapping keyMapping[] = {
 		{34, 0x09}, //F
 		{35, 0x0A}, //G
 		{36, 0x0B}, //H
+		{37, 0x0D}, //J
+		{38, 0x0E}, //K
+		{39, 0x0F}, //L
+		{40, 0x33}, //Ö but coded as ;: Key_Semicolon
+		{41, 0x34}, //Ä but coded as '" Key_Apostrophe
+		{42, 0x28}, //Enter
+		{43, 0x4D}, //End
+		{44, 0x00}, //BLANK FOR NOW
+		//FOURTH ROW
+		{45, 0xE1}, //LEFT SHIFT MODIFIER
 
 };
 
