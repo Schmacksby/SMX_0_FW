@@ -19,6 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "usb_device.h"
+#include "usbd_hid.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -60,7 +61,6 @@ typedef struct
 
 
 volatile uint8_t key_pressed = 0;	//which key was pressed
-
 
 extern USBD_HandleTypeDef hUsbDeviceFS;
 

@@ -65,7 +65,7 @@ Discarded input sections
  .data          0x0000000000000000        0x0 ./Core/Src/key_functions.o
  .bss           0x0000000000000000        0x0 ./Core/Src/key_functions.o
  .data.keyMapping
-                0x0000000000000000       0x90 ./Core/Src/key_functions.o
+                0x0000000000000000       0x96 ./Core/Src/key_functions.o
  .bss.matrix_previous
                 0x0000000000000000       0x4b ./Core/Src/key_functions.o
  .group         0x0000000000000000        0xc ./Core/Src/main.o
