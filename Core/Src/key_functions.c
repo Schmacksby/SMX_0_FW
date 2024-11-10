@@ -17,6 +17,7 @@ typedef struct {
 	uint8_t hexValue;
 } Key_Mapping;
 
+
 GPIO_Pin rowsToIterate[] = {
 		{GPIOB, GPIO_PIN_3},
 		{GPIOB, GPIO_PIN_4},
@@ -57,7 +58,7 @@ Key_Mapping keyMapping[] = {
 		{9, 0x26}, //Keyboard 9
 		{10, 0x27}, //Keyboard 0
 		{11, 0x2D}, // ß but coded as Key_Minus
-		{12, 0x27}, // ´` but coded as Key_Equal
+		{12, 0x2E}, // ´` but coded as Key_Equal
 		{13, 0x2A}, //Backspace
 		{14, 0x00}, //BLANK FOR NOW
 		//SECOND ROW
@@ -122,7 +123,7 @@ Key_Mapping keyMapping[] = {
 		{70, 0x00}, //LINE KEY
 		{71, 0xE6}, //RIGHT ALT MODIFIER
 		{72, 0x50}, //Key_Left
-		{73, 0x52}, //Key_Down
+		{73, 0x51}, //Key_Down
 		{74, 0x4F} //Key_Right
 };
 
@@ -131,12 +132,20 @@ Key_Mapping keyMapping[] = {
 #define ROWS_TO_ITERATE_SIZE sizeof(rowsToIterate)/sizeof(rowsToIterate[0])
 #define COLS_TO_ITERATE_SIZE sizeof(colsToIterate)/sizeof(colsToIterate[0])
 
-volatile uint8_t matrix_current[ROWS_TO_ITERATE_SIZE][COLS_TO_ITERATE_SIZE] = {{0}};
-volatile uint8_t matrix_previous[ROWS_TO_ITERATE_SIZE][COLS_TO_ITERATE_SIZE] = {{0}};
+uint8_t matrix_current[ROWS_TO_ITERATE_SIZE][COLS_TO_ITERATE_SIZE] = {{0}};
+//volatile uint8_t matrix_previous[ROWS_TO_ITERATE_SIZE][COLS_TO_ITERATE_SIZE] = {{0}};
+
+uint8_t key_pressed;
+uint8_t modifier_pressed;
+uint8_t keys_to_send[6] = {0};
+uint8_t shift_value;
+
+
 
 void check_matrix(void){
 
 	uint8_t row, col;
+	uint8_t key_index = 0;
 	//reset all rows to known state
 	for (row = 0; row < ROWS_TO_ITERATE_SIZE; row++){
 		HAL_GPIO_WritePin(rowsToIterate[row].port, rowsToIterate[row].pin, GPIO_PIN_RESET);
@@ -145,15 +154,28 @@ void check_matrix(void){
 	//check each key and save status to matrix_current
 	for (row = 0; row < ROWS_TO_ITERATE_SIZE; row++){
 		HAL_GPIO_WritePin(rowsToIterate[row].port, rowsToIterate[row].pin, GPIO_PIN_SET);
+
 		for(col = 0; col < COLS_TO_ITERATE_SIZE; col++){
 			if(HAL_GPIO_ReadPin(colsToIterate[col].port, colsToIterate[col].pin)){
 				matrix_current[row][col] = 1;
-			} else {
+				key_pressed = keyMapping[row * COLS_TO_ITERATE_SIZE + col].hexValue; //extract usage ID from keyMapping
+				if (key_pressed >= 0xE0){ // if the value is in modifier range translate 0xE0, 0xE1... to 0x01 for leftCTRL, 0x02 for leftShift etc
+					shift_value =  key_pressed ^ 0xE0;
+					modifier_pressed |= (1 << shift_value); //if multiple modifiers are pressed, combine them into one hex value
+				}
+				else if (key_index <= 6){
+					keys_to_send[key_index] = key_pressed;
+					key_index++;
+
+				}
+			} /*else {
 				matrix_current[row][col] = 0;
-			}
+
+			}*/
 		}
 		HAL_GPIO_WritePin(rowsToIterate[row].port, rowsToIterate[row].pin, GPIO_PIN_RESET);
 	}
+	key_index = 0;
 	//HAL_Delay(200);
 
 }
