@@ -94,7 +94,36 @@ Key_Mapping keyMapping[] = {
 		{44, 0x00}, //BLANK FOR NOW
 		//FOURTH ROW
 		{45, 0xE1}, //LEFT SHIFT MODIFIER
-
+		{46, 0x1D}, //Y but coded as Z
+		{47, 0x1B}, //X
+		{48, 0x06}, //C
+		{49, 0x19}, //V
+		{50, 0x05}, //B
+		{51, 0x11}, //N
+		{52, 0x10}, //M
+		{53, 0x36}, //,; but coded as ,< Key_Comma
+		{54, 0x37}, //.: but coded as .> Key_dot
+		{55, 0x38}, //-_ but coded as /? Key_Slash
+		{56, 0xE5}, //RIGHT SHIFT MODIFIER
+		{57, 0x31}, //#' but coded as \| Key_Backslash
+		{58, 0x52}, //Key_Up
+		{59, 0x00}, //BLANK FOR NOW
+		//FITH ROW
+		{60, 0xE0}, //LEFT CONTROL MODIFIER
+		{61, 0xE3}, //LEFT GUI MODIFIER
+		{62, 0xE2}, //LEFT ALT MODIFIER
+		{63, 0x2C}, //SPACE 1
+		{64, 0x2C}, //SPACE 2
+		{65, 0x2C}, //SPACE 3
+		{66, 0x2C}, //SPACE 4
+		{67, 0x2C}, //SPACE 5
+		{68, 0x2C}, //SPACE 6
+		{69, 0x00}, //WORD KEY
+		{70, 0x00}, //LINE KEY
+		{71, 0xE6}, //RIGHT ALT MODIFIER
+		{72, 0x50}, //Key_Left
+		{73, 0x52}, //Key_Down
+		{74, 0x4F} //Key_Rigth
 };
 
 

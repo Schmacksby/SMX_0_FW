@@ -64,8 +64,8 @@ all: main-build
 main-build: smx_0_keyboard.elf secondary-outputs
 
 # Tool invocations
-smx_0_keyboard.elf smx_0_keyboard.map: $(OBJS) $(USER_OBJS) /home/schmacks/STM32CubeIDE/Keyboard_workspace/smx_0_keyboard/STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "smx_0_keyboard.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"/home/schmacks/STM32CubeIDE/Keyboard_workspace/smx_0_keyboard/STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="smx_0_keyboard.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+smx_0_keyboard.elf smx_0_keyboard.map: $(OBJS) $(USER_OBJS) /home/schmacks/STM32CubeIDE/workspace_20_10_2024/smx_0_keyboard/STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "smx_0_keyboard.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"/home/schmacks/STM32CubeIDE/workspace_20_10_2024/smx_0_keyboard/STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="smx_0_keyboard.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
