@@ -123,7 +123,7 @@ Key_Mapping keyMapping[] = {
 		{71, 0xE6}, //RIGHT ALT MODIFIER
 		{72, 0x50}, //Key_Left
 		{73, 0x52}, //Key_Down
-		{74, 0x4F} //Key_Rigth
+		{74, 0x4F} //Key_Right
 };
 
 
