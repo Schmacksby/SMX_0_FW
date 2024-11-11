@@ -58,9 +58,9 @@ Key_Mapping keyMapping[] = {
 		{9, 0x26}, //Keyboard 9
 		{10, 0x27}, //Keyboard 0
 		{11, 0x2D}, // ß but coded as Key_Minus
-		{12, 0x2E}, // ´` but coded as Key_Equal
-		{13, 0x2A}, //Backspace
-		{14, 0x00}, //BLANK FOR NOW
+		{12, 0x2A}, //Backspace
+		{13, 0x2E}, // ´` but coded as Key_Equal
+		{14, 0x4C}, //Delete
 		//SECOND ROW
 		{15, 0x2B}, //Tab
 		{16, 0x14}, //Q
