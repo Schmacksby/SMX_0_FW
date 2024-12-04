@@ -62,9 +62,10 @@ extern USBD_HandleTypeDef hUsbDeviceFS;
 subKeyBoard keyBoardHIDsub = {0,0,0,0,0,0,0,0};
 
 
-int rot_sw = 0;
-int rot_A = 0;
-int rot_B = 0;
+uint8_t rot_sw = 0;
+uint8_t rot_A = 0;
+uint8_t rot_B = 0;
+uint8_t i;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -119,7 +120,7 @@ int main(void)
 		/* USER CODE END WHILE */
 
 		/* USER CODE BEGIN 3 */
-		uint8_t i;
+
 		check_matrix();
 		keyBoardHIDsub.MODIFIER = modifier_pressed;
 		keyBoardHIDsub.KEYCODE1 = key_pressed;
